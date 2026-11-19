@@ -26,8 +26,8 @@ const projects = [
     description: "A personal website to showcase my skills, projects, and contact information.",
     technologies: ["HTML", "CSS", "JavaScript"],
     image: "images/project-portfolio.svg",
-    github: "", // Add your actual repository URL.
-    liveDemo: "", // Add your deployed GitHub Pages URL.
+    github: "https://github.com/alt-lier/Portfolio.git", // Add your actual repository URL.
+    liveDemo: "https://alt-lier.github.io/Portfolio/", // Add your deployed GitHub Pages URL.
     features: ["Responsive layout for desktop, tablet, and mobile", "Centralized personal and project configuration", "Interactive project cards and contact section"]
   },
   {
