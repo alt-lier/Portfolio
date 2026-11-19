@@ -56,7 +56,16 @@ const skillDetails = {
     title: "Aspiring Developer",
     description: "I enjoy building practical digital experiences and learning how software works from the ground up.",
     skills: ["HTML", "CSS", "JavaScript", "Java", "Python"],
-    focus: "Building responsive interfaces, writing clear code, and improving through hands-on projects."
+    focus: "Building responsive interfaces, writing clear code, and improving through hands-on projects.",
+    certificates: [
+      {
+        title: "Google Generative AI Accelerator Program - Philippines",
+        issuer: "SmartBridge",
+        date: "Issued Nov 2026",
+        image: "images/google-genai-accelerator.jpg",
+        link: "https://ph.myskillwallet.ai/verify/certificate/B1284989F03F"
+      }
+    ]
   },
   uiux: {
     title: "UI/UX Design",
@@ -256,15 +265,34 @@ function openProject(index) {
     </div>`;
   detailModal.show();
 }
-
+function certificatesMarkup(list = []) {
+  if (!list.length) return "";
+  return `
+    <h3 class="h6 fw-bold mt-4">Certificates</h3>
+    <div class="certificate-list">
+      ${list.map(cert => {
+    const url = safeUrl(cert.link);
+    return `
+          <article class="certificate-card">
+            ${cert.image ? `<img src="${escapeAttribute(cert.image)}" alt="${escapeAttribute(cert.title)} certificate" loading="lazy">` : ""}
+            <div>
+              <h4>${escapeHtml(cert.title)}</h4>
+              <p>${escapeHtml(cert.issuer)}${cert.date ? ` · ${escapeHtml(cert.date)}` : ""}</p>
+              ${url ? externalLink(url, "View credential") : ""}
+            </div>
+          </article>`;
+  }).join("")}
+    </div>`;
+}
 $$("[data-skill]").forEach(button => button.addEventListener("click", () => {
   const skill = skillDetails[button.dataset.skill];
   if (!skill) return;
   $("#modalEyebrow").textContent = "SKILLS & TOOLS";
   $("#detailModalTitle").textContent = skill.title;
   $("#modalBody").innerHTML = `<p class="modal-description">${escapeHtml(skill.description)}</p>
-    <div class="skill-modal-tags">${skill.skills.map(s => `<span>${escapeHtml(s)}</span>`).join("")}</div>
-    <h3 class="h6 fw-bold mt-4">What I focus on</h3><p class="modal-description">${escapeHtml(skill.focus)}</p>`;
+  <div class="skill-modal-tags">${skill.skills.map(s => `<span>${escapeHtml(s)}</span>`).join("")}</div>
+  <h3 class="h6 fw-bold mt-4">What I focus on</h3><p class="modal-description">${escapeHtml(skill.focus)}</p>
+  ${certificatesMarkup(skill.certificates)}`;
   detailModal.show();
 }));
 
